@@ -5,7 +5,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#e3e8ee">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    /* Set the theme before first paint so dark mode never flashes white. */
+    (function () {
+      try {
+        var saved = localStorage.getItem('js-theme');
+        var dark = saved ? saved === 'dark'
+                         : !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        var mode = dark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', mode);
+        document.documentElement.style.colorScheme = mode;
+      } catch (e) { /* private mode — fall back to light */ }
+    })();
+  </script>
   <meta name="author" content="Jersey Zenith V. Setera">
   <meta name="description" content="Jersey Zenith Setera (Jersey Setera) — creative designer and developer. Founder & CEO of Feint Lab Collective and Chief Operating Officer (COO) of NightPatch Dev. Visual identity, interfaces and custom software.">
   <meta name="keywords" content="Jersey Setera, Jersey Zenith Setera, Jersey Zenith V. Setera, Feint Lab Collective, Feint Lab Collective CEO, NightPatch Dev COO, Creative Designer Philippines, Graphic Designer Philippines, Web Developer Philippines, Visual Identity, UI UX Design, Chrome UI, Y2K Futurism, Portfolio">
@@ -48,6 +61,7 @@
     "addressCountry": "PH"
   },
   "sameAs": [
+    "https://www.linkedin.com/in/jersey-setera-7955ab36b/",
     "https://www.facebook.com/feintlabcollective/",
     "https://www.instagram.com/feintlabcollective/",
     "https://soundcloud.com/zenithjvs",
@@ -686,7 +700,6 @@
     .addr:hover{box-shadow:var(--bevel-in),0 0 0 1px rgba(10,154,212,.45)}
     .addr-ico{width:13px;height:13px;flex:none;border-radius:50%;background:radial-gradient(circle at 34% 26%,#fff,#9ed7f2 42%,#0a9ad4 76%,#0a6c99);box-shadow:inset 1px 1px 0 rgba(255,255,255,.7)}
     .addr-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .addr-go{flex:none;font-weight:700;font-size:.54rem;letter-spacing:.16em;padding:3px 8px;border:1px solid rgba(24,46,70,.32);background:var(--face-grad);box-shadow:var(--bevel-out);color:var(--ink)}
 
     .tab-strip{display:flex;align-items:flex-end;gap:2px;padding:4px 8px 0;overflow-x:auto;background:linear-gradient(180deg,#e7eef6,#d5dfeb);scrollbar-width:none}
     .tab-strip::-webkit-scrollbar{display:none}
@@ -767,9 +780,176 @@
     .role-item{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;padding:15px 18px;background:linear-gradient(180deg,rgba(255,255,255,.74),rgba(238,243,249,.52))}
     .role-item strong{font-size:1.04rem;color:var(--ink)}
     .role-item span{font-family:var(--ui);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .about-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
 
     /* ---- inner panels adopt the same square, bevelled language ---- */
     .contact-box,.audio-card,.skills-panel,.design-item,.proof-card,.archive-status{border-radius:0}
+
+    /* ==========================================================
+       DARK MODE — "graphite chrome". Tokens flip, then the handful
+       of surfaces that hardcode light values are re-tuned so the
+       chrome still reads as chrome rather than grey mud.
+       ========================================================== */
+    html[data-theme="dark"]{
+      --bg:#080d13;
+      --bg-soft:#141c26;
+      --panel:rgba(22,30,41,.62);
+      --panel-2:rgba(26,35,48,.78);
+      --ink:#e9eff6;
+      --ink-2:#c6d3e2;
+      --muted:#93a2b3;
+      --line:rgba(255,255,255,.14);
+      --line-soft:rgba(255,255,255,.07);
+      --line-hi:rgba(255,255,255,.16);
+      --accent:#4fc3f0;
+      --accent-2:#7fd3f6;
+      --accent-3:#e9eff6;
+      --chrome-1:#eaf1f9;
+      --chrome-2:#c7d4e2;
+      --chrome-3:#8d9aab;
+      --chrome-4:#5d6a78;
+      --chrome-5:#2c3641;
+      --shadow-sm:0 1px 2px rgba(0,0,0,.55),0 8px 18px -10px rgba(0,0,0,.75);
+      --shadow:0 2px 3px rgba(0,0,0,.5),0 22px 46px -22px rgba(0,0,0,.85);
+      --shadow-lg:0 4px 9px rgba(0,0,0,.55),0 46px 92px -42px rgba(0,0,0,.92);
+      --bevel:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.06);
+
+      --edge:#d7e4f1;
+      --bevel-out:inset 1px 1px 0 rgba(255,255,255,.14),inset -1px -1px 0 rgba(0,0,0,.45);
+      --bevel-in:inset 1px 1px 3px rgba(0,0,0,.6),inset -1px -1px 0 rgba(255,255,255,.08);
+      --face-grad:linear-gradient(180deg,#4a5a6e 0%,#3b485a 6%,#2c3746 46%,#222c39 52%,#2e3a4a 94%,#3e4d61 100%);
+    }
+
+    html[data-theme="dark"] body{
+      background:
+        radial-gradient(120% 90% at 50% -22%,rgba(120,150,186,.30) 0%,rgba(0,0,0,0) 55%),
+        radial-gradient(80% 62% at 7% 10%,rgba(20,96,150,.40),transparent 62%),
+        radial-gradient(72% 58% at 93% 76%,rgba(120,64,164,.30),transparent 62%),
+        radial-gradient(95% 72% at 50% 112%,rgba(46,72,112,.42),transparent 60%),
+        linear-gradient(180deg,#0e151e 0%,#0a1119 28%,#070d14 60%,#050a10 100%);
+    }
+    html[data-theme="dark"] body::before{background:
+        linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/58px 58px,
+        linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/58px 58px,
+        repeating-linear-gradient(101deg,rgba(255,255,255,.08) 0 1px,rgba(255,255,255,0) 1px 3px,rgba(0,0,0,.22) 3px 4px,rgba(255,255,255,0) 4px 8px)}
+    html[data-theme="dark"] .noise{opacity:.05;mix-blend-mode:screen}
+    html[data-theme="dark"] ::selection{background:#4fc3f0;color:#04121c}
+
+    /* ---- headings keep their chrome, just inverted ---- */
+    html[data-theme="dark"] .chrome-text{
+      background-image:linear-gradient(100deg,#93a5b7 0%,#c4d3e2 16%,#eaf2fa 30%,#8cb2d2 44%,#e4f3fe 52%,#a4b8ca 66%,#7fddff 80%,#b7c5d3 92%,#ebf4fc 100%);
+      filter:drop-shadow(0 1px 6px rgba(0,0,0,.75));
+    }
+    html[data-theme="dark"] .hero-copy h1 em,
+    html[data-theme="dark"] .section-head h2 em,
+    html[data-theme="dark"] .about h2 em,
+    html[data-theme="dark"] .contact h2 em,
+    html[data-theme="dark"] .community-copy h2 em{
+      background-image:linear-gradient(104deg,#8fe0ff 0%,#63c6f0 24%,#2fb4ec 52%,#b8aef5 78%,#a49bf0 100%);
+      filter:drop-shadow(0 1px 8px rgba(0,0,0,.65));
+    }
+    html[data-theme="dark"] .proof-card strong{
+      background-image:linear-gradient(160deg,#ecf3fa,#9fb2c6 40%,#c9d8e6 58%,#f2f8ff 100%);
+      filter:drop-shadow(0 1px 6px rgba(0,0,0,.7));
+    }
+    html[data-theme="dark"] .eyebrow::before{box-shadow:0 0 0 1px rgba(255,255,255,.16),0 0 10px rgba(79,195,240,.75)}
+    html[data-theme="dark"] .spec-sweep::after{background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent)}
+
+    /* ---- application windows ---- */
+    html[data-theme="dark"] .win{
+      background:linear-gradient(180deg,rgba(26,35,48,.62),rgba(15,22,31,.5));
+      border-color:rgba(0,0,0,.65);
+      box-shadow:var(--bevel-out),3px 3px 0 rgba(0,0,0,.32),0 28px 60px -42px rgba(0,0,0,.95);
+    }
+    html[data-theme="dark"] .win-bar{border-bottom-color:rgba(0,0,0,.65);box-shadow:inset 0 1px 0 rgba(255,255,255,.11)}
+    html[data-theme="dark"] .win-ico{background:radial-gradient(circle at 34% 28%,#a4b8cc,#4d5d70 46%,#2b3644);box-shadow:inset 1px 1px 0 rgba(255,255,255,.2),0 1px 2px rgba(0,0,0,.55)}
+    html[data-theme="dark"] .win-btns b{border-color:rgba(0,0,0,.7)}
+    html[data-theme="dark"] .win-btns b:nth-child(1)::before{background:#d7e4f1}
+    html[data-theme="dark"] .win-status{background:linear-gradient(180deg,#1a2230,#121a25);border-top-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+
+    /* ---- browser chrome ---- */
+    html[data-theme="dark"] .site-header{background:linear-gradient(180deg,#182130,#101722);border-bottom-color:rgba(0,0,0,.85);box-shadow:0 14px 34px -24px rgba(0,0,0,.95)}
+    html[data-theme="dark"] .chrome-title{border-bottom-color:#062a54}
+    html[data-theme="dark"] .chrome-title .win-btns b{border-color:rgba(0,0,0,.7);background:linear-gradient(180deg,#54657a,#3a4757 48%,#2a3542 52%,#40505f)}
+    html[data-theme="dark"] .chrome-title .win-btns b:nth-child(1)::before,
+    html[data-theme="dark"] .chrome-title .win-btns b:nth-child(2)::before{background:#0a1119;border-color:#0a1119}
+    html[data-theme="dark"] .chrome-title .win-btns b:nth-child(3)::before{color:#0a1119}
+    html[data-theme="dark"] .chrome-tools{background:linear-gradient(180deg,#1d2634,#131b26);border-bottom-color:rgba(255,255,255,.1)}
+    html[data-theme="dark"] .tb-btn{color:#cbd8e6}
+    html[data-theme="dark"] .tb-btn:hover:not(:disabled){border-color:rgba(255,255,255,.22)}
+    html[data-theme="dark"] .addr{background:#0a1017;color:#a9b8c8;border-color:rgba(255,255,255,.2)}
+    html[data-theme="dark"] .addr:hover{box-shadow:var(--bevel-in),0 0 0 1px rgba(79,195,240,.55)}
+    html[data-theme="dark"] .chrome-tools .menu-toggle{border-color:rgba(255,255,255,.24)}
+    html[data-theme="dark"] .chrome-tools .menu-toggle i,
+    html[data-theme="dark"] .chrome-tools .menu-toggle i:before,
+    html[data-theme="dark"] .chrome-tools .menu-toggle i:after{background:linear-gradient(90deg,#9fb2c6,#dbe7f4)}
+    html[data-theme="dark"] .tab-strip{background:linear-gradient(180deg,#161f2b,#0f1620)}
+    html[data-theme="dark"] .tab{background:linear-gradient(180deg,#242f3d,#18212c);border-color:rgba(255,255,255,.15);color:#93a2b3;box-shadow:inset 1px 1px 0 rgba(255,255,255,.07)}
+    html[data-theme="dark"] .tab:hover{background:linear-gradient(180deg,#303d4c,#232e3b);color:#e9eff6}
+    html[data-theme="dark"] .tab.is-active{background:linear-gradient(180deg,#2d3947,#1d2733);color:#f2f7fc;box-shadow:inset 0 3px 0 0 var(--luna-2),inset 1px 1px 0 rgba(255,255,255,.1)}
+
+    /* ---- theme toggle (lives in the address bar) ---- */
+    .theme-toggle{
+      flex:none;display:inline-flex;align-items:center;gap:7px;height:24px;padding:0 11px;
+      border:1px solid rgba(24,46,70,.34);border-radius:0;cursor:pointer;
+      background:var(--face-grad);box-shadow:var(--bevel-out);
+      font-family:var(--ui);font-size:.54rem;font-weight:700;letter-spacing:.16em;color:var(--ink);
+    }
+    .theme-toggle:hover{filter:brightness(1.06)}
+    .theme-toggle:active{box-shadow:var(--bevel-in)}
+    .theme-toggle-ico{
+      width:11px;height:11px;flex:none;border-radius:50%;
+      background:radial-gradient(circle at 68% 30%,rgba(255,255,255,0) 0 42%,#c3d3e3 43%,#8fa3b9 100%);
+      box-shadow:inset 1px 1px 0 rgba(255,255,255,.75),0 1px 2px rgba(20,40,64,.32);
+    }
+    html[data-theme="dark"] .theme-toggle-ico{
+      background:radial-gradient(circle,#ffeab0 0 44%,#f2b64e 45% 72%,rgba(242,182,78,0) 73%);
+      box-shadow:0 0 9px rgba(242,182,78,.65);inset:0;
+    }
+
+    /* ---- remaining light-surface cards ---- */
+    html[data-theme="dark"] .marquee{border-color:rgba(255,255,255,.13);background:linear-gradient(180deg,#1b2431,#131b26 46%,#0e151f 54%,#18212e);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -1px 0 rgba(0,0,0,.55)}
+    html[data-theme="dark"] .work-card .preview-card{border-color:rgba(255,255,255,.16);background:linear-gradient(168deg,#232e3c,#151d27 45%,#0f151e 100%)}
+    html[data-theme="dark"] .work-card .preview-card:before{border-color:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(0,0,0,.4)}
+    html[data-theme="dark"] .work-card .preview-media{background:linear-gradient(150deg,#1b2532,#111923)}
+    html[data-theme="dark"] .work-card .preview-badge{border-color:rgba(255,255,255,.2);background:rgba(12,18,26,.78)}
+    html[data-theme="dark"] .work-dot{background:rgba(255,255,255,.22)}
+    html[data-theme="dark"] .design-item{border-color:rgba(255,255,255,.14);background:linear-gradient(160deg,rgba(30,40,54,.72),rgba(15,22,31,.62))}
+    html[data-theme="dark"] .proof-card{border-right-color:rgba(255,255,255,.11);background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,0))}
+    html[data-theme="dark"] .community-photo{border-color:rgba(255,255,255,.15);background:linear-gradient(160deg,rgba(30,40,54,.72),rgba(15,22,31,.58));box-shadow:0 34px 80px -34px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.13)}
+    html[data-theme="dark"] .contact-box{border-color:rgba(255,255,255,.15);background:radial-gradient(ellipse at 88% 12%,rgba(40,150,215,.26),transparent 44%),radial-gradient(ellipse at 12% 96%,rgba(150,90,220,.2),transparent 46%),linear-gradient(168deg,rgba(30,40,54,.82),rgba(15,22,31,.64))}
+    html[data-theme="dark"] .audio-card{border-color:rgba(255,255,255,.15);background:linear-gradient(168deg,rgba(30,40,54,.82),rgba(15,22,31,.64))}
+    html[data-theme="dark"] .text-link{border-color:rgba(255,255,255,.2);background:linear-gradient(160deg,rgba(42,55,72,.88),rgba(24,33,46,.74))}
+    html[data-theme="dark"] .site-loader{background:radial-gradient(ellipse at 50% 38%,rgba(90,130,175,.34),transparent 42%),linear-gradient(180deg,#0d141d,#05090e)}
+    html[data-theme="dark"] .menu-panel{background:linear-gradient(180deg,rgba(0,0,0,.62),rgba(0,0,0,.78))}
+    html[data-theme="dark"] .menu-inner{background:linear-gradient(180deg,rgba(24,33,46,.97),rgba(13,19,27,.95));border-color:rgba(255,255,255,.2);box-shadow:var(--bevel-out),0 40px 90px -40px rgba(0,0,0,.95)}
+    html[data-theme="dark"] .menu-links{border-top-color:rgba(255,255,255,.15)}
+    html[data-theme="dark"] .taskbar{background:linear-gradient(180deg,#1a2230,#121a26 42%,#0d131d 54%,#161e2a);border-top-color:rgba(255,255,255,.15)}
+    html[data-theme="dark"] .task-chip{border-color:rgba(255,255,255,.17);background:linear-gradient(180deg,#232e3c,#161e2a)}
+    html[data-theme="dark"] .tray{border-color:rgba(255,255,255,.15);background:linear-gradient(180deg,#1d2734,#131b26)}
+    html[data-theme="dark"] .start-btn{background:linear-gradient(180deg,#4aa6dd,#1c62aa 46%,#0a3f7d 54%,#15528f)}
+    html[data-theme="dark"] ::-webkit-scrollbar-track{background:repeating-linear-gradient(45deg,#141d27,#141d27 2px,#1c2733 2px,#1c2733 4px);border-left-color:rgba(255,255,255,.1)}
+    html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#4b5c72,#303e4e 46%,#243140 52%,#3e4e62);border-color:rgba(255,255,255,.22)}
+    html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#63768d,#3e4f63 45%,#2d3c4c 52%,#56697f)}
+    html[data-theme="dark"] ::-webkit-scrollbar-corner{background:#141d27}
+
+    /* ---- panels the first pass missed ---- */
+    html[data-theme="dark"] .proof{border-color:rgba(255,255,255,.16);background:linear-gradient(168deg,rgba(30,40,54,.8),rgba(15,22,31,.6))}
+    html[data-theme="dark"] .skill-group{border-color:rgba(255,255,255,.14);background:linear-gradient(160deg,rgba(30,40,54,.7),rgba(15,22,31,.55));box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+    html[data-theme="dark"] .role-item{background:linear-gradient(180deg,rgba(32,42,56,.8),rgba(20,28,38,.62))}
+    html[data-theme="dark"] .work-select{border-color:rgba(255,255,255,.2);background-image:linear-gradient(160deg,#202a37,#151d27),linear-gradient(45deg,transparent 50%,#93a2b3 50%),linear-gradient(135deg,#93a2b3 50%,transparent 50%)}
+    html[data-theme="dark"] .work-arrow{border-color:rgba(255,255,255,.2);background:linear-gradient(160deg,#202a37,#151d27)}
+    html[data-theme="dark"] .audio-link{border-color:rgba(255,255,255,.2);background:linear-gradient(160deg,#202a37,#151d27)}
+    html[data-theme="dark"] .community-art{border-color:rgba(255,255,255,.16);background:radial-gradient(circle at 50% 35%,rgba(40,150,215,.28),transparent 42%),linear-gradient(160deg,#18212e,#0f161f)}
+    html[data-theme="dark"] .about-photo-placeholder{border-color:rgba(255,255,255,.16);background:linear-gradient(160deg,#1b2430,#111823)}
+    html[data-theme="dark"] .soundcloud-frame{border-color:rgba(255,255,255,.14);background:#0f161f}
+    html[data-theme="dark"] .hero-grid,
+    html[data-theme="dark"] .loader-grid{background:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px)}
+    html[data-theme="dark"] .socials a{border-color:rgba(255,255,255,.2);background:linear-gradient(160deg,rgba(42,55,72,.9),rgba(24,33,46,.76))}
+    html[data-theme="dark"] .socials a:hover{color:#fff;box-shadow:var(--bevel),0 14px 28px -16px rgba(0,0,0,.9)}
+    html[data-theme="dark"] .menu-links a{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.07)}
+    html[data-theme="dark"] .menu-links a:hover{background:rgba(255,255,255,.15);color:#fff}
+    html[data-theme="dark"] .community-dot{background:rgba(255,255,255,.22)}
 
     /* ---- anchor offset under the fixed chrome ---- */
     [id]{scroll-margin-top:calc(var(--chrome-h) + 22px)}
@@ -786,7 +966,8 @@
       :root{--win-pad:16px;--win-bar:30px}
       .chrome-title .brand-name{display:none}
       .chrome-tools{gap:5px;padding:4px 6px}
-      .addr-go{display:none}
+      .theme-toggle{padding:0 9px;gap:0}
+      .theme-toggle-label{display:none}
       .win,.hero.win{padding-top:calc(var(--win-bar) + 26px);padding-bottom:74px}
       .win-status{font-size:.48rem;letter-spacing:.1em;gap:8px;padding:0 8px}
       .win-status span{padding-right:8px}
@@ -850,8 +1031,11 @@
       <a class="addr" href="#top" id="addrBar" aria-label="Address bar — return home">
         <span class="addr-ico" aria-hidden="true"></span>
         <span class="addr-text" id="addrText">http://jerseysetera.vercel.app/</span>
-        <span class="addr-go" aria-hidden="true">GO</span>
       </a>
+      <button class="theme-toggle" type="button" id="themeToggle" aria-pressed="false" aria-label="Switch to dark mode" title="Dark mode">
+        <span class="theme-toggle-ico" aria-hidden="true"></span>
+        <span class="theme-toggle-label">DARK</span>
+      </button>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menuPanel" aria-label="Open navigation">
         <span>MENU</span><i aria-hidden="true"></i>
       </button>
@@ -885,6 +1069,7 @@
       </nav>
       <div class="menu-links">
         <a href="https://www.facebook.com/feintlabcollective/" target="_blank" rel="noopener noreferrer me">Facebook ↗</a>
+        <a href="https://www.linkedin.com/in/jersey-setera-7955ab36b/" target="_blank" rel="noopener noreferrer me">LinkedIn ↗</a>
         <a href="https://www.instagram.com/feintlabcollective/" target="_blank" rel="noopener noreferrer me">Instagram ↗</a>
         <a href="https://soundcloud.com/zenithjvs" target="_blank" rel="noopener noreferrer me">SoundCloud ↗</a>
         <a href="https://nightpatchdev.online" target="_blank" rel="noopener noreferrer me">NightPatch Dev ↗</a>
@@ -1045,6 +1230,9 @@
             <div class="role-item"><strong>Founder &amp; Chief Executive Officer</strong><span>Feint Lab Collective</span></div>
             <div class="role-item"><strong>Chief Operating Officer (COO)</strong><span>NightPatch Dev</span></div>
           </div>
+          <div class="about-links">
+            <a class="text-link spec-sweep" href="https://www.linkedin.com/in/jersey-setera-7955ab36b/" target="_blank" rel="noopener noreferrer me">LinkedIn — Jersey Setera ↗</a>
+          </div>
           <div class="facts">
             <div class="fact"><strong>Developer</strong><small>Web Development</small></div>
             <div class="fact"><strong>Designer</strong><small>Graphics &amp; Media</small></div>
@@ -1062,7 +1250,7 @@
             </div>
           </div>
         </div>
-        <div class="win-status" aria-hidden="true"><span><b class="led"></b>Bacolod City / Remote</span><span>Developer × Designer × IT</span><span>Open to work</span></div>
+        <div class="win-status" aria-hidden="true"><span><b class="led"></b></span><span>Developer × Designer × IT</span><span>Open to work</span></div>
       </section>
 
       <section class="section win" id="experience" aria-labelledby="experience-title">
@@ -1164,6 +1352,7 @@
           <a class="email" href="mailto:jerseyzenith88@gmail.com">jerseyzenith88@gmail.com ↗</a>
           <div class="socials" aria-label="Social links">
             <a href="https://www.facebook.com/feintlabcollective/" target="_blank" rel="noopener noreferrer me">Facebook ↗</a>
+            <a href="https://www.linkedin.com/in/jersey-setera-7955ab36b/" target="_blank" rel="noopener noreferrer me">LinkedIn ↗</a>
             <a href="https://www.instagram.com/feintlabcollective/" target="_blank" rel="noopener noreferrer me">Instagram ↗</a>
             <a href="https://soundcloud.com/zenithjvs" target="_blank" rel="noopener noreferrer me">SoundCloud ↗</a>
             <a href="https://github.com/jerseysetera" target="_blank" rel="noopener noreferrer me">GitHub ↗</a>
@@ -1198,6 +1387,36 @@
     toggle.addEventListener('click',()=>setMenu(!body.classList.contains('menu-open')));
     navLinks.forEach(link=>link.addEventListener('click',()=>setMenu(false)));
     document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+    /* ---------- THEME TOGGLE (dark mode) ---------- */
+    (()=>{
+      const root=document.documentElement;
+      const btn=document.getElementById('themeToggle');
+      const label=btn&&btn.querySelector('.theme-toggle-label');
+      const meta=document.querySelector('meta[name="theme-color"]');
+      const LIGHT='#e3e8ee',DARK='#0a0e15';
+
+      function apply(mode,save){
+        root.setAttribute('data-theme',mode);
+        root.style.colorScheme=mode;
+        if(meta) meta.setAttribute('content',mode==='dark'?DARK:LIGHT);
+        if(btn){
+          const dark=mode==='dark';
+          btn.setAttribute('aria-pressed',String(dark));
+          btn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+          btn.title=dark?'Light mode':'Dark mode';
+        }
+        if(label) label.textContent=mode==='dark'?'LIGHT':'DARK';
+        if(save){try{localStorage.setItem('js-theme',mode)}catch(e){}}
+      }
+
+      /* the head script already picked the starting mode — just sync the UI */
+      apply(root.getAttribute('data-theme')==='dark'?'dark':'light',false);
+
+      if(btn) btn.addEventListener('click',()=>{
+        apply(root.getAttribute('data-theme')==='dark'?'light':'dark',true);
+      });
+    })();
 
     /* ---------- Y2K browser chrome: tabs, address bar, focused window, taskbar ---------- */
     (function(){
