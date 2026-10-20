@@ -951,6 +951,22 @@
     html[data-theme="dark"] .menu-links a:hover{background:rgba(255,255,255,.15);color:#fff}
     html[data-theme="dark"] .community-dot{background:rgba(255,255,255,.22)}
 
+    /* ---- text that sits on a hardcoded LIGHT surface ----
+       these all paint their own white/light backdrop, so the token
+       flip never reaches them and the text disappears. ---- */
+    /* the work carousel info slab: an opaque light panel at the card foot */
+    html[data-theme="dark"] .work-card .preview-info{background:linear-gradient(180deg,rgba(14,20,28,0) 0%,rgba(14,20,28,.94) 32%,#0d131b 100%)}
+    /* frosted pills and chips that carry light text */
+    html[data-theme="dark"] .work-card .preview-arrow{border-color:rgba(255,255,255,.22);background:linear-gradient(160deg,rgba(42,55,72,.92),rgba(24,33,46,.85))}
+    html[data-theme="dark"] .tech-stack span{border-color:rgba(255,255,255,.16);background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.05));box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+    html[data-theme="dark"] .skill-list span{border-color:rgba(255,255,255,.16);background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.04));color:var(--ink-2)}
+    html[data-theme="dark"] .design-label,
+    html[data-theme="dark"] .about-photo-tag,
+    html[data-theme="dark"] .community-photo figcaption{border-color:rgba(255,255,255,.22);background:rgba(12,18,26,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    /* hover states that hardcode black text */
+    html[data-theme="dark"] .menu-nav a:hover{color:#fff}
+    html[data-theme="dark"] .email:hover{color:#fff}
+
     /* ---- anchor offset under the fixed chrome ---- */
     [id]{scroll-margin-top:calc(var(--chrome-h) + 22px)}
 
